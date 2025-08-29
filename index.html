@@ -11,7 +11,7 @@
       padding: 0;
       box-sizing: border-box;
     }
-
+    
     body {
       height: 100vh;
       background: #000;
@@ -179,6 +179,28 @@
       48% { opacity: 0.6; transform: translateX(-1px); }
       50% { opacity: 1; transform: translateX(0); }
     }
+    .intro h2 {
+  font-size: 3rem;
+  color: #e6f0ff;
+  letter-spacing: 4px;
+  text-shadow: 0 0 20px #9abedc, 0 0 50px #5a6d7f;
+  animation: flicker 2s infinite, bloodFade 3s forwards;
+}
+
+@keyframes bloodFade {
+  0% {
+    color: #e6f0ff;
+    text-shadow: 0 0 20px #9abedc, 0 0 50px #5a6d7f;
+  }
+  50% {
+    color: #d43c3c;
+    text-shadow: 0 0 25px #a33, 0 0 60px #400;
+  }
+  100% {
+    color: #8b0000;
+    text-shadow: 0 0 40px #ff0000, 0 0 120px #300;
+  }
+}
   </style>
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 </head>
@@ -195,6 +217,7 @@
   <section class="altar">
     <model-viewer class="fountain"
       src="fountain_with_three_putts_brno_luzanky.glb" 
+      camera-controls
       auto-rotate
       auto-rotate-delay="0"
       rotation-per-second="6deg"
@@ -266,4 +289,3 @@
   </nav>
 </body>
 </html>
-
