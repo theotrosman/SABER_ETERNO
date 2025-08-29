@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Historia | Iglesia del Saber Eterno</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: radial-gradient(circle at center, #0b0d12 0%, #000 100%);
+      color: #e6e6e6;
+      font-family: 'Crimson Text', serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow-x: hidden;
+    }
+
+    /* Header */
+    header {
+      width: 100%;
+      background: rgba(0,0,0,0.85);
+      padding: 20px 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 10;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 0 15px rgba(200,200,255,0.2);
+    }
+
+    header h1 {
+      font-family: 'UnifrakturCook', cursive;
+      font-size: 2rem;
+      color: #e6f0ff;
+      text-shadow: 0 0 15px #9abedc, 0 0 40px #4a5a6b;
+    }
+
+    nav {
+      display: flex;
+      gap: 30px;
+    }
+
+    nav a {
+      text-decoration: none;
+      font-size: 1.1rem;
+      color: #e6f0ff;
+      text-shadow: 0 0 10px #7da1c4;
+      transition: 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #fff;
+      text-shadow: 0 0 20px #9cc2e0, 0 0 50px #5a6d7f;
+    }
+
+    /* Contenido */
+    main {
+      margin-top: 120px;
+      max-width: 1000px;
+      padding: 20px;
+      text-align: center;
+      animation: fadeIn 3s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+      font-family: 'UnifrakturCook', cursive;
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      color: #e6f0ff;
+      text-shadow: 0 0 25px #a7c8e4, 0 0 60px #4a5a6b;
+      animation: flicker 4s infinite;
+    }
+
+    @keyframes flicker {
+      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
+      20%, 24%, 55% { opacity: 0.3; }
+      22% { opacity: 0.6; }
+    }
+
+    p {
+      font-size: 1.2rem;
+      line-height: 1.8rem;
+      margin-bottom: 20px;
+      color: #ddd;
+    }
+
+    /* Modelo */
+    .angel-container {
+      margin: 50px 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    model-viewer {
+      width: 300px;
+      height: 450px;
+      background: transparent;
+      filter: drop-shadow(0 0 25px rgba(180,200,255,0.2));
+    }
+  </style>
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Iglesia del Saber Eterno</h1>
+    <nav>
+      <a href="index.html">Inicio</a>
+      <a href="historia.html">Historia</a>
+      <a href="ritos.html">Ritos</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>La Historia</h2>
+    <p>
+      Cuentan que antes de la primera piedra, hubo un silencio que cubrió al mundo.  
+      De ese silencio nació un pacto: custodiar el saber prohibido, más allá de lo humano.
+    </p>
+    <p>
+      La Iglesia del Saber Eterno no fue construida por manos, sino invocada por susurros.  
+      Sus muros no contienen ladrillos, sino ecos de lo que nunca debía recordarse.
+    </p>
+    
+    <div class="angel-container">
+      <model-viewer 
+        src="engel_statue_scan_-_retopology.glb"
+        auto-rotate
+        auto-rotate-delay="0"
+        rotation-per-second="8deg"
+        shadow-intensity="1"
+        exposure="0.5"
+        interaction-prompt="none"
+        field-of-view="20deg"
+        loading="eager"
+        reveal="auto"
+        poster="black"
+        environment-image="neutral">
+      </model-viewer>
+    </div>
+
+    <p>
+      El ángel de piedra que aquí ves no es un adorno, sino un guardián.  
+      Sus ojos vacíos vigilan el paso del tiempo, y en su silencio carga las memorias de quienes se atrevieron a entrar.
+    </p>
+    <p>
+      Quien lee estas líneas ya forma parte de la historia.  
+      No hay regreso, solo la promesa de un conocimiento que consume tanto como ilumina.
+    </p>
+  </main>
+</body>
+</html>
