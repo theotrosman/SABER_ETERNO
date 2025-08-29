@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <title>Iglesia del Saber Eterno</title>
@@ -11,7 +12,7 @@
       padding: 0;
       box-sizing: border-box;
     }
-    
+
     body {
       height: 100vh;
       background: #000;
@@ -22,12 +23,14 @@
       align-items: center;
       justify-content: space-between;
       overflow: hidden;
+      cursor: crosshair;
     }
 
     /* Pantalla de intro negra */
     .intro {
       position: fixed;
-      top: 0; left: 0;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
       background: #000;
@@ -40,7 +43,10 @@
     }
 
     @keyframes fadeOut {
-      to { opacity: 0; visibility: hidden; }
+      to {
+        opacity: 0;
+        visibility: hidden;
+      }
     }
 
     .intro h2 {
@@ -54,18 +60,24 @@
     /* Overlay frío */
     .overlay {
       position: fixed;
-      top: 0; left: 0;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
-      background: radial-gradient(circle at center, rgba(50,80,100,0.25) 0%, transparent 70%);
+      background: radial-gradient(circle at center, rgba(50, 80, 100, 0.25) 0%, transparent 70%);
       pointer-events: none;
       animation: pulse 8s infinite alternate;
       z-index: 1;
     }
 
     @keyframes pulse {
-      from { opacity: 0.4; }
-      to { opacity: 0.8; }
+      from {
+        opacity: 0.4;
+      }
+
+      to {
+        opacity: 0.8;
+      }
     }
 
     /* Título */
@@ -83,13 +95,34 @@
     }
 
     @keyframes flicker {
-      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
-      20%, 24%, 55% { opacity: 0.3; }
-      22% { opacity: 0.6; }
+
+      0%,
+      19%,
+      21%,
+      23%,
+      25%,
+      54%,
+      56%,
+      100% {
+        opacity: 1;
+      }
+
+      20%,
+      24%,
+      55% {
+        opacity: 0.3;
+      }
+
+      22% {
+        opacity: 0.6;
+      }
     }
 
     @keyframes fadeInUp {
-      to { opacity: 1; transform: translateY(0); }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     /* Altar central */
@@ -105,7 +138,7 @@
       width: 65vw;
       height: 50vh;
       background: transparent;
-      filter: drop-shadow(0 0 40px rgba(200,220,255,0.25));
+      filter: drop-shadow(0 0 40px rgba(200, 220, 255, 0.25));
       opacity: 0;
       transform: scale(0.9);
       animation: fadeInZoom 2.5s ease forwards;
@@ -113,7 +146,10 @@
     }
 
     @keyframes fadeInZoom {
-      to { opacity: 1; transform: scale(1); }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
 
     /* Navegación con ángeles */
@@ -139,18 +175,29 @@
       width: 150px;
       height: 200px;
       background: transparent;
-      filter: drop-shadow(0 0 25px rgba(180,200,255,0.15));
+      filter: drop-shadow(0 0 25px rgba(180, 200, 255, 0.15));
       opacity: 0;
       transform: translateY(50px);
       animation: angelDrop 2s ease forwards;
     }
 
-    .nav-item:nth-child(1) .angel { animation-delay: 5s; }
-    .nav-item:nth-child(2) .angel { animation-delay: 5.3s; }
-    .nav-item:nth-child(3) .angel { animation-delay: 5.6s; }
+    .nav-item:nth-child(1) .angel {
+      animation-delay: 5s;
+    }
+
+    .nav-item:nth-child(2) .angel {
+      animation-delay: 5.3s;
+    }
+
+    .nav-item:nth-child(3) .angel {
+      animation-delay: 5.6s;
+    }
 
     @keyframes angelDrop {
-      to { opacity: 1; transform: translateY(0); }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     nav a {
@@ -172,38 +219,65 @@
     }
 
     @keyframes glitch {
-      0%, 100% { opacity: 1; }
-      45% { opacity: 0.9; }
-      46% { opacity: 0.4; transform: translateX(-2px); }
-      47% { opacity: 1; transform: translateX(2px); }
-      48% { opacity: 0.6; transform: translateX(-1px); }
-      50% { opacity: 1; transform: translateX(0); }
-    }
-    .intro h2 {
-  font-size: 3rem;
-  color: #e6f0ff;
-  letter-spacing: 4px;
-  text-shadow: 0 0 20px #9abedc, 0 0 50px #5a6d7f;
-  animation: flicker 2s infinite, bloodFade 3s forwards;
-}
 
-@keyframes bloodFade {
-  0% {
-    color: #e6f0ff;
-    text-shadow: 0 0 20px #9abedc, 0 0 50px #5a6d7f;
-  }
-  50% {
-    color: #d43c3c;
-    text-shadow: 0 0 25px #a33, 0 0 60px #400;
-  }
-  100% {
-    color: #8b0000;
-    text-shadow: 0 0 40px #ff0000, 0 0 120px #300;
-  }
-}
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      45% {
+        opacity: 0.9;
+      }
+
+      46% {
+        opacity: 0.4;
+        transform: translateX(-2px);
+      }
+
+      47% {
+        opacity: 1;
+        transform: translateX(2px);
+      }
+
+      48% {
+        opacity: 0.6;
+        transform: translateX(-1px);
+      }
+
+      50% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .intro h2 {
+      font-size: 3rem;
+      color: #e6f0ff;
+      letter-spacing: 4px;
+      text-shadow: 0 0 20px #9abedc, 0 0 50px #5a6d7f;
+      animation: flicker 2s infinite, bloodFade 3s forwards;
+    }
+
+    @keyframes bloodFade {
+      0% {
+        color: #e6f0ff;
+        text-shadow: 0 0 20px #9abedc, 0 0 50px #5a6d7f;
+      }
+
+      50% {
+        color: #d43c3c;
+        text-shadow: 0 0 25px #a33, 0 0 60px #400;
+      }
+
+      100% {
+        color: #8b0000;
+        text-shadow: 0 0 40px #ff0000, 0 0 120px #300;
+      }
+    }
   </style>
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 </head>
+
 <body>
   <!-- Intro -->
   <div class="intro">
@@ -215,73 +289,33 @@
   <h1 class="title">Iglesia del Saber Eterno</h1>
 
   <section class="altar">
-    <model-viewer class="fountain"
-      src="fountain_with_three_putts_brno_luzanky.glb" 
-      auto-rotate
-      auto-rotate-delay="0"
-      rotation-per-second="6deg"
-      shadow-intensity="1"
-      exposure="0.45"
-      interaction-prompt="none"
-      field-of-view="15deg"
-      loading="eager"
-      reveal="auto"
-      poster="black"
-      environment-image="neutral">
+    <model-viewer class="fountain" src="fountain_with_three_putts_brno_luzanky.glb" auto-rotate auto-rotate-delay="0"
+      rotation-per-second="6deg" shadow-intensity="1" exposure="0.45" interaction-prompt="none" field-of-view="15deg"
+      loading="eager" reveal="auto" poster="black" environment-image="neutral">
     </model-viewer>
   </section>
 
   <nav>
     <div class="nav-item">
-      <model-viewer class="angel"
-        src="free_angels_statues_-_retopoed_kinda.glb"
-        auto-rotate
-        auto-rotate-delay="0"
-        rotation-per-second="10deg"
-        shadow-intensity="1"
-        exposure="0.5"
-        field-of-view="20deg"
-        loading="lazy"
-        reveal="auto"
-        poster="black"
-        interaction-prompt="none"
-        environment-image="neutral">
+      <model-viewer class="angel" src="free_angels_statues_-_retopoed_kinda.glb" auto-rotate auto-rotate-delay="0"
+        rotation-per-second="10deg" shadow-intensity="1" exposure="0.5" field-of-view="20deg" loading="lazy"
+        reveal="auto" poster="black" interaction-prompt="none" environment-image="neutral">
       </model-viewer>
       <a href="historia.html">Historia</a>
     </div>
 
     <div class="nav-item">
-      <model-viewer class="angel"
-        src="free_angels_statues_-_retopoed_kinda.glb"
-        auto-rotate
-        auto-rotate-delay="0"
-        rotation-per-second="10deg"
-        shadow-intensity="1"
-        exposure="0.5"
-        field-of-view="20deg"
-        loading="lazy"
-        reveal="auto"
-        poster="black"
-        interaction-prompt="none"
-        environment-image="neutral">
+      <model-viewer class="angel" src="free_angels_statues_-_retopoed_kinda.glb" auto-rotate auto-rotate-delay="0"
+        rotation-per-second="10deg" shadow-intensity="1" exposure="0.5" field-of-view="20deg" loading="lazy"
+        reveal="auto" poster="black" interaction-prompt="none" environment-image="neutral">
       </model-viewer>
       <a href="ritos.html">Ritos</a>
     </div>
 
     <div class="nav-item">
-      <model-viewer class="angel"
-        src="free_angels_statues_-_retopoed_kinda.glb"
-        auto-rotate
-        auto-rotate-delay="0"
-        rotation-per-second="10deg"
-        shadow-intensity="1"
-        exposure="0.5"
-        field-of-view="20deg"
-        loading="lazy"
-        reveal="auto"
-        poster="black"
-        interaction-prompt="none"
-        environment-image="neutral">
+      <model-viewer class="angel" src="free_angels_statues_-_retopoed_kinda.glb" auto-rotate auto-rotate-delay="0"
+        rotation-per-second="10deg" shadow-intensity="1" exposure="0.5" field-of-view="20deg" loading="lazy"
+        reveal="auto" poster="black" interaction-prompt="none" environment-image="neutral">
       </model-viewer>
       <a href="contacto.html">Contacto</a>
     </div>
@@ -297,7 +331,5 @@
 (__(__)___(__)__)
 github.com/theotrosman
 -->
+
 </html>
-
-
-
