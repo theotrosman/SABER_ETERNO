@@ -4,12 +4,19 @@
   <meta charset="UTF-8">
   <title>Iglesia del Saber Eterno</title>
   <style>
-    body {
+    @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap');
+
+    * {
       margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
       height: 100vh;
       background: radial-gradient(circle at center, #0b0d12 0%, #000 100%);
       color: #dfe6f0;
-      font-family: 'Poppins', sans-serif;
+      font-family: 'UnifrakturCook', cursive;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -17,105 +24,147 @@
       overflow: hidden;
     }
 
-    h1 {
-      font-size: 4rem;
-      margin-top: 30px;
-      letter-spacing: 4px;
-      color: #e6f0ff;
-      text-shadow: 0 0 30px #9abedc, 0 0 80px #5a6d7f, 0 0 120px #3a4652;
-      animation: flicker 4s infinite;
+    /* Overlay de atmósfera */
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at center, rgba(50,80,100,0.25) 0%, transparent 70%);
+      pointer-events: none;
+      animation: pulse 8s infinite alternate;
+      z-index: 1;
     }
 
-    .main-model {
-      width: 90vw;
+    @keyframes pulse {
+      from { opacity: 0.6; }
+      to { opacity: 0.9; }
+    }
+
+    /* Título */
+    .title {
+      font-size: 4.5rem;
+      margin-top: 40px;
+      letter-spacing: 6px;
+      color: #e6f0ff;
+      text-shadow: 0 0 25px #a7c8e4, 0 0 60px #4a5a6b, 0 0 120px #2a323a;
+      animation: flicker 4s infinite;
+      z-index: 2;
+    }
+
+    @keyframes flicker {
+      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
+      20%, 24%, 55% { opacity: 0.3; }
+      22% { opacity: 0.6; }
+    }
+
+    /* Altar central */
+    .altar {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2;
+    }
+
+    .fountain {
+      width: 70vw;
       height: 55vh;
       background: transparent;
+      filter: drop-shadow(0 0 40px rgba(200,220,255,0.25));
     }
 
+    /* Navegación con ángeles */
     nav {
-      margin-bottom: 50px;
+      margin-bottom: 60px;
       display: flex;
-      gap: 80px;
+      gap: 120px;
       align-items: flex-end;
+      z-index: 2;
     }
 
     .nav-item {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 15px;
+      gap: 20px;
     }
 
+    .angel {
+      width: 180px;
+      height: 240px;
+      background: transparent;
+      filter: drop-shadow(0 0 25px rgba(180,200,255,0.15));
+    }
+
+    /* Botones */
     nav a {
-      padding: 20px 40px;
+      padding: 20px 50px;
       border-radius: 12px;
       text-decoration: none;
-      font-size: 1.4rem;
-      letter-spacing: 2px;
+      font-size: 1.6rem;
+      letter-spacing: 3px;
       color: #e6f0ff;
-      background: transparent;
-      text-shadow: 0 0 20px #e6f0ff, 0 0 45px #7da1c4, 0 0 100px #4a5a6b;
-      animation: flicker 3s infinite;
+      text-shadow: 0 0 25px #e6f0ff, 0 0 60px #7da1c4, 0 0 120px #4a5a6b;
+      animation: glitch 3s infinite;
       transition: transform 0.2s ease;
     }
 
     nav a:hover {
-      text-shadow: 0 0 35px #fff, 0 0 80px #9cc2e0, 0 0 150px #5a6d7f;
+      text-shadow: 0 0 40px #fff, 0 0 90px #9cc2e0, 0 0 180px #5a6d7f;
       filter: brightness(1.5);
       transform: scale(1.1);
     }
 
-    .angel {
-      width: 150px;
-      height: 200px;
-      background: transparent;
-    }
-
-    @keyframes flicker {
-      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
-        opacity: 1;
-      }
-      20%, 24%, 55% {
-        opacity: 0.25;
-      }
-      22% {
-        opacity: 0.6;
-      }
+    @keyframes glitch {
+      0%, 100% { opacity: 1; }
+      45% { opacity: 0.9; }
+      46% { opacity: 0.4; transform: translateX(-2px); }
+      47% { opacity: 1; transform: translateX(2px); }
+      48% { opacity: 0.6; transform: translateX(-1px); }
+      50% { opacity: 1; transform: translateX(0); }
     }
   </style>
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 </head>
 <body>
-  <h1>Iglesia del Saber Eterno</h1>
+  <div class="overlay"></div>
 
-  <model-viewer class="main-model"
-    src="fountain_with_three_putts_brno_luzanky.glb" 
-    camera-controls 
-    auto-rotate 
-    auto-rotate-delay="0" 
-    rotation-per-second="8deg"
-    shadow-intensity="1"
-    exposure="0.45"
-    interaction-prompt="none"
-    field-of-view="25deg"
-    loading="eager"
-    reveal="auto"
-    poster="black"
-    environment-image="neutral">
-  </model-viewer>
+  <h1 class="title">Iglesia del Saber Eterno</h1>
+
+  <section class="altar">
+    <model-viewer class="fountain"
+      src="fountain_with_three_putts_brno_luzanky.glb" 
+      camera-controls
+      auto-rotate
+      auto-rotate-delay="0"
+      rotation-per-second="6deg"
+      shadow-intensity="1"
+      exposure="0.45"
+      interaction-prompt="none"
+      field-of-view="25deg"
+      loading="eager"
+      reveal="auto"
+      poster="black"
+      environment-image="neutral">
+    </model-viewer>
+  </section>
 
   <nav>
     <div class="nav-item">
       <model-viewer class="angel"
         src="free_angels_statues_-_retopoed_kinda.glb"
-        camera-controls
-        loading="eager"
+        auto-rotate
+        auto-rotate-delay="0"
+        rotation-per-second="10deg"
+        shadow-intensity="1"
+        exposure="0.5"
+        field-of-view="20deg"
+        loading="lazy"
         reveal="auto"
         poster="black"
         interaction-prompt="none"
-        environment-image="neutral"
-        field-of-view="20deg"
-        autoplay>
+        environment-image="neutral">
       </model-viewer>
       <a href="historia.html">Historia</a>
     </div>
@@ -123,14 +172,17 @@
     <div class="nav-item">
       <model-viewer class="angel"
         src="free_angels_statues_-_retopoed_kinda.glb"
-        camera-controls
-        loading="eager"
+        auto-rotate
+        auto-rotate-delay="0"
+        rotation-per-second="10deg"
+        shadow-intensity="1"
+        exposure="0.5"
+        field-of-view="20deg"
+        loading="lazy"
         reveal="auto"
         poster="black"
         interaction-prompt="none"
-        environment-image="neutral"
-        field-of-view="20deg"
-        autoplay>
+        environment-image="neutral">
       </model-viewer>
       <a href="ritos.html">Ritos</a>
     </div>
@@ -138,14 +190,17 @@
     <div class="nav-item">
       <model-viewer class="angel"
         src="free_angels_statues_-_retopoed_kinda.glb"
-        camera-controls
-        loading="eager"
+        auto-rotate
+        auto-rotate-delay="0"
+        rotation-per-second="10deg"
+        shadow-intensity="1"
+        exposure="0.5"
+        field-of-view="20deg"
+        loading="lazy"
         reveal="auto"
         poster="black"
         interaction-prompt="none"
-        environment-image="neutral"
-        field-of-view="20deg"
-        autoplay>
+        environment-image="neutral">
       </model-viewer>
       <a href="contacto.html">Contacto</a>
     </div>
