@@ -9,7 +9,7 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      background: #000;
+      background: radial-gradient(circle, #000 70%, #150000 100%);
       color: #ddd;
       font-family: 'Cinzel Decorative', serif;
       height: 100vh;
@@ -43,7 +43,6 @@
       text-decoration: none;
       font-size: 1.1rem;
       color: #eee;
-      text-shadow: 0 0 10px #f00;
       transition: 0.3s ease;
     }
     nav a:hover {
@@ -52,64 +51,74 @@
     }
 
     main {
-      margin-top: 120px;
       flex: 1;
       display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: flex-start;
+      padding-top: 140px;
       position: relative;
     }
 
     /* Modelo central */
     model-viewer {
-      width: 700px;
-      height: 700px;
-      filter: drop-shadow(0 0 40px rgba(255,0,0,0.8));
+      width: 650px;
+      height: 650px;
+      filter: drop-shadow(0 0 50px rgba(255,0,0,0.7));
       animation: aura 6s infinite alternate;
+      z-index: 2;
     }
 
     @keyframes aura {
-      from { filter: drop-shadow(0 0 20px rgba(255,0,0,0.5)); }
-      to { filter: drop-shadow(0 0 80px rgba(255,50,50,1)); }
+      from { filter: drop-shadow(0 0 40px rgba(255,0,0,0.4)); }
+      to { filter: drop-shadow(0 0 90px rgba(255,30,30,1)); }
+    }
+
+    /* Runas detrás */
+    .runas {
+      position: absolute;
+      width: 850px;
+      height: 850px;
+      border-radius: 50%;
+      border: 2px dashed rgba(255,0,0,0.35);
+      animation: spin 30s linear infinite;
+      z-index: 1;
+      top: 120px;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
 
     /* Texto ritual */
     .versos {
       position: absolute;
-      bottom: 40px;
-      text-align: center;
       width: 100%;
+      text-align: center;
+      bottom: 40px;
+      z-index: 3;
+      padding: 0 100px;
     }
 
     .versos p {
       font-size: 1.4rem;
-      margin: 10px 0;
+      margin: 15px 0;
       opacity: 0;
-      animation: fadeGlitch 2s forwards;
+      animation: fadeIn 2s forwards;
     }
 
     .versos p:nth-child(1) { animation-delay: 1s; }
     .versos p:nth-child(2) { animation-delay: 3s; }
     .versos p:nth-child(3) { animation-delay: 5s; }
+    .versos p:nth-child(4) { animation-delay: 7s; }
 
-    @keyframes fadeGlitch {
-      0% { opacity: 0; transform: scale(1.1); }
-      50% { opacity: 1; text-shadow: 2px 0 red, -2px 0 blue; }
-      100% { opacity: 1; text-shadow: 0 0 20px #f00, 0 0 60px #800; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    .scramble {
-      animation: glitchText 3s infinite;
-    }
-
-    @keyframes glitchText {
-      0% { text-shadow: 2px 0 red, -2px 0 blue; }
-      20% { text-shadow: -3px -3px red, 3px 3px blue; transform: skew(0.5deg); }
-      40% { text-shadow: 3px 2px red, -2px -2px blue; }
-      60% { text-shadow: -4px 0 red, 4px 0 blue; }
-      80% { text-shadow: 4px 4px red, -4px -4px blue; transform: skew(-0.8deg); }
-      100% { text-shadow: 0 0 25px #ff0000, 0 0 80px #800; }
-    }
+    /* Scramble anim */
+    .scramble { position: relative; }
   </style>
 
   <!-- Precarga rápida -->
@@ -129,6 +138,7 @@
   </header>
 
   <main>
+    <div class="runas"></div>
     <model-viewer 
       src="ophanim_angel.glb"
       autoplay
@@ -138,7 +148,6 @@
       rotation-per-second="3deg"
       shadow-intensity="1"
       exposure="0.7"
-      camera-controls="false"
       interaction-prompt="none"
       loading="eager"
       reveal="auto"
@@ -147,17 +156,18 @@
     </model-viewer>
 
     <div class="versos">
-      <p class="scramble">«Los ojos vigilan, incluso cuando cierras los tuyos.»</p>
-      <p class="scramble">«El rito consume, el juramento arde.»</p>
-      <p class="scramble">«La eternidad observa, y ya te ha marcado.»</p>
+      <p class="scramble">«Los ojos del Ophanim jamás se cierran; cada parpadeo humano es contado.»</p>
+      <p class="scramble">«El rito exige silencio, pues la voz invoca aquello que no puede ser contenido.»</p>
+      <p class="scramble">«Quien ofrece su nombre en el círculo arde, pero su eco se graba en la eternidad.»</p>
+      <p class="scramble">«El Ángel de los Anillos no juzga, solo observa. Y en su mirada quedas marcado.»</p>
     </div>
   </main>
 
   <script>
-    // Precarga manual para acelerar aún más
+    // Precarga manual del modelo
     fetch("ophanim_angel.glb").then(()=>console.log("Modelo Ophanim precargado ✅"));
 
-    // Scramble extra dinámico
+    // Scramble dinámico
     const chars = "!<>-_\\/[]{}—=+*^?#ΩΨΦ§";
     function randomChar() { return chars[Math.floor(Math.random() * chars.length)]; }
 
@@ -166,21 +176,21 @@
       if (!el.dataset.original) el.dataset.original = original;
       let output = '';
       for (let i = 0; i < original.length; i++) {
-        if (Math.random() < 0.15) {
+        if (Math.random() < 0.12) { 
           output += randomChar();
         } else {
           output += original[i];
         }
       }
       el.textContent = output;
-      setTimeout(()=>{ el.textContent = original; }, 250);
+      setTimeout(()=>{ el.textContent = original; }, 250); 
     }
 
     setInterval(()=>{
       const elements = document.querySelectorAll('.scramble');
       const el = elements[Math.floor(Math.random() * elements.length)];
       scrambleText(el);
-    }, 1200);
+    }, 1000);
   </script>
 </body>
 </html>
