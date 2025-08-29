@@ -4,114 +4,189 @@
   <meta charset="UTF-8">
   <title>Historia | Iglesia del Saber Eterno</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap');
-    @import url('https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&family=Cinzel+Decorative:wght@700&display=swap');
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      background: radial-gradient(circle at center, #0b0d12 0%, #000 100%);
-      color: #e6e6e6;
-      font-family: 'Crimson Text', serif;
+      background: #000;
+      color: #ddd;
+      font-family: 'Cinzel Decorative', serif;
+      height: 100vh;
       display: flex;
       flex-direction: column;
-      align-items: center;
       overflow-x: hidden;
+      cursor: crosshair;
     }
 
     /* Header */
     header {
       width: 100%;
-      background: rgba(0,0,0,0.85);
+      background: rgba(0,0,0,0.95);
       padding: 20px 50px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       position: fixed;
-      top: 0;
-      left: 0;
+      top: 0; left: 0;
       z-index: 10;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-      box-shadow: 0 0 15px rgba(200,200,255,0.2);
+      border-bottom: 1px solid rgba(255,0,0,0.4);
+      box-shadow: 0 0 25px rgba(200,0,0,0.2);
     }
 
     header h1 {
       font-family: 'UnifrakturCook', cursive;
       font-size: 2rem;
-      color: #e6f0ff;
-      text-shadow: 0 0 15px #9abedc, 0 0 40px #4a5a6b;
+      color: #f5f5f5;
+      text-shadow: 0 0 15px #ff0000, 0 0 40px #800;
     }
 
-    nav {
-      display: flex;
-      gap: 30px;
-    }
-
+    nav { display: flex; gap: 30px; }
     nav a {
       text-decoration: none;
       font-size: 1.1rem;
-      color: #e6f0ff;
-      text-shadow: 0 0 10px #7da1c4;
+      color: #eee;
+      text-shadow: 0 0 10px #f00;
       transition: 0.3s ease;
     }
-
     nav a:hover {
       color: #fff;
-      text-shadow: 0 0 20px #9cc2e0, 0 0 50px #5a6d7f;
+      text-shadow: 0 0 25px #ff0000, 0 0 60px #800;
     }
 
-    /* Contenido */
+    /* Layout */
     main {
       margin-top: 120px;
-      max-width: 1000px;
-      padding: 20px;
-      text-align: center;
-      animation: fadeIn 3s ease forwards;
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding: 40px;
+      gap: 40px;
+      align-items: center;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
+    .texto {
+      text-align: left;
+      padding-right: 20px;
     }
 
-    h2 {
+    .texto h2 {
       font-family: 'UnifrakturCook', cursive;
-      font-size: 2.5rem;
+      font-size: 3rem;
       margin-bottom: 30px;
-      color: #e6f0ff;
-      text-shadow: 0 0 25px #a7c8e4, 0 0 60px #4a5a6b;
-      animation: flicker 4s infinite;
+      color: #eee;
+      text-shadow: 0 0 25px #ff3333, 0 0 60px #600;
+      animation: bleed 4s infinite alternate;
     }
 
-    @keyframes flicker {
-      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
-      20%, 24%, 55% { opacity: 0.3; }
-      22% { opacity: 0.6; }
+    @keyframes bleed {
+      from { text-shadow: 0 0 15px #f33; }
+      to { text-shadow: 0 0 30px #ff0000, 0 0 80px #800; color: #ff5555; }
     }
 
-    p {
-      font-size: 1.2rem;
-      line-height: 1.8rem;
-      margin-bottom: 20px;
-      color: #ddd;
+    .texto p {
+      font-size: 1.3rem;
+      line-height: 2.2rem;
+      margin-bottom: 25px;
+      opacity: 0;
+      transform: translateX(-40px);
+      animation: revealText 1.5s forwards;
+    }
+    .texto p:nth-child(2) { animation-delay: 1s; }
+    .texto p:nth-child(3) { animation-delay: 2s; }
+    .texto p:nth-child(4) { animation-delay: 3s; }
+    .texto p:nth-child(5) { animation-delay: 4s; }
+
+    @keyframes revealText {
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .ritual {
+      color: #ff4444;
+      font-weight: bold;
+      text-shadow: 0 0 15px #f00, 0 0 40px #800;
+      cursor: pointer;
+      position: relative;
+    }
+
+    /* Efecto sangrado al pasar */
+    .ritual::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: -5px;
+      width: 3px;
+      height: 0;
+      background: linear-gradient(to bottom, #f00, transparent);
+      animation: none;
+    }
+    .ritual:hover::after {
+      animation: drip 1s infinite;
+    }
+
+    @keyframes drip {
+      0% { height: 0; opacity: 0; }
+      40% { height: 20px; opacity: 1; }
+      100% { height: 0; opacity: 0; }
     }
 
     /* Modelo */
     .angel-container {
-      margin: 50px 0;
+      position: relative;
       display: flex;
       justify-content: center;
+      align-items: center;
     }
 
     model-viewer {
-      width: 300px;
-      height: 450px;
+      width: 100%;
+      height: 600px;
       background: transparent;
-      filter: drop-shadow(0 0 25px rgba(180,200,255,0.2));
+      filter: drop-shadow(0 0 20px rgba(255,0,0,0.4));
+      animation: glitch 6s infinite;
+    }
+
+    @keyframes glitch {
+      0%, 100% { transform: translate(0,0) scale(1); }
+      45% { filter: drop-shadow(0 0 25px rgba(255,0,0,0.6)); }
+      50% { transform: translate(-5px, 2px) scale(1.02); filter: drop-shadow(0 0 60px rgba(255,0,0,0.9)); }
+      52% { transform: translate(5px, -3px) scale(0.98); filter: drop-shadow(0 0 40px rgba(200,0,0,0.7)); }
+      55% { transform: translate(0,0) scale(1); }
+    }
+
+    /* Runas arcanas girando */
+    .runas {
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      border: 2px dashed rgba(255,0,0,0.4);
+      animation: spin 20s linear infinite;
+      z-index: -1;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .mensaje-final {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'UnifrakturCook', cursive;
+      font-size: 2rem;
+      color: #ff3333;
+      text-shadow: 0 0 30px #f00, 0 0 80px #800;
+      opacity: 0;
+      animation: aparecer 3s forwards;
+      animation-delay: 6s;
+    }
+
+    @keyframes aparecer {
+      to { opacity: 1; }
     }
   </style>
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
@@ -128,24 +203,33 @@
   </header>
 
   <main>
-    <h2>La Historia</h2>
-    <p>
-      Cuentan que antes de la primera piedra, hubo un silencio que cubrió al mundo.  
-      De ese silencio nació un pacto: custodiar el saber prohibido, más allá de lo humano.
-    </p>
-    <p>
-      La Iglesia del Saber Eterno no fue construida por manos, sino invocada por susurros.  
-      Sus muros no contienen ladrillos, sino ecos de lo que nunca debía recordarse.
-    </p>
-    
+    <div class="texto">
+      <h2>Crónica Prohibida</h2>
+
+      <p>Antes de los templos y de las plegarias, existió un pacto de <span class="ritual">SANGRE</span>.  
+      Aquellos que lo sellaron ofrecieron su memoria y su cuerpo.</p>
+
+      <p>La Iglesia no fue levantada: fue revelada.  
+      Sus cimientos son ecos de gritos, sus muros laten como un corazón.</p>
+
+      <p>El ángel de piedra observa, impasible.  
+      No protege: <span class="ritual">VIGILA</span>, condena, marca a quienes lo miran demasiado tiempo.</p>
+
+      <p>Los <span class="ritual">RITUALES</span> exigían nombres susurrados, y cada nombre pronunciado se grababa con fuego en la eternidad.</p>
+
+      <p>Ahora, lector, ya formas parte del juramento.  
+      No hay salida sin ofrecer tu propia <span class="ritual">ETERNIDAD</span>.</p>
+    </div>
+
     <div class="angel-container">
+      <div class="runas"></div>
       <model-viewer 
         src="engel_statue_scan_-_retopology.glb"
         auto-rotate
         auto-rotate-delay="0"
-        rotation-per-second="8deg"
+        rotation-per-second="5deg"
         shadow-intensity="1"
-        exposure="0.5"
+        exposure="0.6"
         interaction-prompt="none"
         field-of-view="20deg"
         loading="eager"
@@ -154,15 +238,8 @@
         environment-image="neutral">
       </model-viewer>
     </div>
-
-    <p>
-      El ángel de piedra que aquí ves no es un adorno, sino un guardián.  
-      Sus ojos vacíos vigilan el paso del tiempo, y en su silencio carga las memorias de quienes se atrevieron a entrar.
-    </p>
-    <p>
-      Quien lee estas líneas ya forma parte de la historia.  
-      No hay regreso, solo la promesa de un conocimiento que consume tanto como ilumina.
-    </p>
   </main>
+
+  <div class="mensaje-final">YA NO PUEDES SALIR</div>
 </body>
 </html>
