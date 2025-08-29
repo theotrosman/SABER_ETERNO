@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>Ritos | Iglesia del Saber Eterno</title>
+  <link rel="preload" href="ophanim_angel.glb" as="fetch" type="model/gltf-binary" crossorigin="anonymous">
+<link rel="prefetch" href="ophanim_angel.glb" as="fetch" type="model/gltf-binary" crossorigin="anonymous">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&family=Cinzel+Decorative:wght@700&display=swap');
 
@@ -198,5 +200,24 @@
 
     setInterval(sangrarLetras, 1500);
   </script>
+  <script>
+  if ('caches' in window) {
+    caches.open('model-cache').then(cache => {
+      cache.add('ophanim_angel.glb').then(() => {
+        console.log("✅ Modelo cacheado para cargas futuras");
+      });
+    });
+  }
+</script>
+<script>
+  fetch("ophanim_angel.glb")
+    .then(res => res.blob())
+    .then(blob => {
+      const url = URL.createObjectURL(blob);
+      document.querySelector("model-viewer").setAttribute("src", url);
+      console.log("✅ Modelo cargado y streameado");
+    });
+</script>
+
 </body>
 </html>
