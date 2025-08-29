@@ -1,4 +1,4 @@
-# [🕯️Iglesia del Saber Eterno🕯️](https://https://sabereterno.netlify.app/)
+# [🕯️Iglesia del Saber Eterno🕯️](https://sabereterno.netlify.app/)
 
 > *“No buscamos la luz... buscamos la verdad que arde en la penumbra.”*
 
