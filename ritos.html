@@ -54,16 +54,17 @@
       flex: 1;
       display: flex;
       justify-content: center;
-      align-items: flex-start;
-      padding-top: 140px;
+      align-items: center;
+      flex-direction: column;
+      padding-top: 120px;
       position: relative;
     }
 
     /* Modelo central */
     model-viewer {
-      width: 650px;
-      height: 650px;
-      filter: drop-shadow(0 0 50px rgba(255,0,0,0.7));
+      width: 600px;
+      height: 600px;
+      filter: drop-shadow(0 0 25px rgba(148, 30, 30, 0.7));
       animation: aura 6s infinite alternate;
       z-index: 2;
     }
@@ -76,13 +77,13 @@
     /* Runas detrás */
     .runas {
       position: absolute;
-      width: 850px;
-      height: 850px;
+      width: 820px;
+      height: 820px;
       border-radius: 50%;
       border: 2px dashed rgba(255,0,0,0.35);
-      animation: spin 30s linear infinite;
+      animation: spin 25s linear infinite;
       z-index: 1;
-      top: 120px;
+      top: 160px;
     }
 
     @keyframes spin {
@@ -92,48 +93,50 @@
 
     /* Texto ritual */
     .versos {
-      position: absolute;
-      width: 100%;
+      margin-top: 40px;
       text-align: center;
-      bottom: 40px;
+      width: 80%;
       z-index: 3;
-      padding: 0 100px;
     }
 
     .versos p {
-      font-size: 1.4rem;
-      margin: 15px 0;
+      font-size: 1.3rem;
+      margin: 12px 0;
       opacity: 0;
       animation: fadeIn 2s forwards;
+      line-height: 2rem;
     }
 
     .versos p:nth-child(1) { animation-delay: 1s; }
-    .versos p:nth-child(2) { animation-delay: 3s; }
-    .versos p:nth-child(3) { animation-delay: 5s; }
-    .versos p:nth-child(4) { animation-delay: 7s; }
+    .versos p:nth-child(2) { animation-delay: 2.5s; }
+    .versos p:nth-child(3) { animation-delay: 4s; }
+    .versos p:nth-child(4) { animation-delay: 5.5s; }
 
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Scramble anim */
-    .scramble { position: relative; }
+    /* Letras sangrientas aleatorias */
+    .sangre {
+      color: #ff4444;
+      text-shadow: 0 0 8px #f00, 0 0 20px #800;
+      transition: color 0.3s ease, text-shadow 0.3s ease;
+    }
   </style>
 
-  <!-- Precarga rápida -->
   <link rel="preload" href="ophanim_angel.glb" as="fetch" type="model/gltf-binary">
   <link rel="prefetch" href="ophanim_angel.glb" as="fetch" type="model/gltf-binary">
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 </head>
 <body>
   <header>
-    <h1 class="scramble">Iglesia del Saber Eterno</h1>
+    <h1>Iglesia del Saber Eterno</h1>
     <nav>
-      <a href="index.html" class="scramble">Inicio</a>
-      <a href="historia.html" class="scramble">Historia</a>
-      <a href="ritos.html" class="scramble">Ritos</a>
-      <a href="contacto.html" class="scramble">Contacto</a>
+      <a href="index.html">Inicio</a>
+      <a href="historia.html">Historia</a>
+      <a href="ritos.html">Ritos</a>
+      <a href="contacto.html">Contacto</a>
     </nav>
   </header>
 
@@ -145,7 +148,7 @@
       animation-name="Armature.001|Armature.002Action.002"
       auto-rotate
       auto-rotate-delay="0"
-      rotation-per-second="3deg"
+      rotation-per-second="10deg"
       shadow-intensity="1"
       exposure="0.7"
       interaction-prompt="none"
@@ -156,41 +159,33 @@
     </model-viewer>
 
     <div class="versos">
-      <p class="scramble">«Los ojos del Ophanim jamás se cierran; cada parpadeo humano es contado.»</p>
-      <p class="scramble">«El rito exige silencio, pues la voz invoca aquello que no puede ser contenido.»</p>
-      <p class="scramble">«Quien ofrece su nombre en el círculo arde, pero su eco se graba en la eternidad.»</p>
-      <p class="scramble">«El Ángel de los Anillos no juzga, solo observa. Y en su mirada quedas marcado.»</p>
+      <p>«Los ojos del Ophanim jamás se cierran; cada parpadeo humano es contado.»</p>
+      <p>«El rito exige silencio, pues la voz invoca aquello que no puede ser contenido.»</p>
+      <p>«Quien ofrece su nombre en el círculo arde, pero su eco se graba en la eternidad.»</p>
+      <p>«El Ángel de los Anillos no juzga, solo observa. Y en su mirada quedas marcado.»</p>
     </div>
   </main>
 
   <script>
-    // Precarga manual del modelo
+    // Precarga
     fetch("ophanim_angel.glb").then(()=>console.log("Modelo Ophanim precargado ✅"));
 
-    // Scramble dinámico
-    const chars = "!<>-_\\/[]{}—=+*^?#ΩΨΦ§";
-    function randomChar() { return chars[Math.floor(Math.random() * chars.length)]; }
-
-    function scrambleText(el) {
-      const original = el.dataset.original || el.textContent;
-      if (!el.dataset.original) el.dataset.original = original;
-      let output = '';
-      for (let i = 0; i < original.length; i++) {
-        if (Math.random() < 0.12) { 
-          output += randomChar();
-        } else {
-          output += original[i];
-        }
-      }
-      el.textContent = output;
-      setTimeout(()=>{ el.textContent = original; }, 250); 
+    // Efecto letras rojas sangrientas en versos
+    function sangrarLetras() {
+      const versos = document.querySelectorAll('.versos p');
+      versos.forEach(p => {
+        const letras = p.textContent.split('');
+        p.innerHTML = letras.map(l => {
+          if (Math.random() < 0.07 && l !== ' ') {
+            return `<span class="sangre">${l}</span>`;
+          } else {
+            return l;
+          }
+        }).join('');
+      });
     }
 
-    setInterval(()=>{
-      const elements = document.querySelectorAll('.scramble');
-      const el = elements[Math.floor(Math.random() * elements.length)];
-      scrambleText(el);
-    }, 1000);
+    setInterval(sangrarLetras, 1500);
   </script>
 </body>
 </html>
