@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Contacto | Iglesia del Saber Eterno</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&family=Cinzel+Decorative:wght@700&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --rojo-1: rgba(180,0,0,0.35);
+      --rojo-2: rgba(200,20,20,0.45);
+      --rojo-3: rgba(255,30,30,0.6);
+      --txt: #ddd;
+      --bg: #000;
+    }
+
+    body {
+      background: radial-gradient(circle at center, #0a0a0a 0%, var(--bg) 100%);
+      color: var(--txt);
+      font-family: 'Cinzel Decorative', serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      cursor: crosshair;
+    }
+
+    /* Niebla de fondo */
+    .neblina {
+      position: fixed; inset: 0;
+      z-index: 0;
+      background: radial-gradient(circle at 50% 40%, rgba(80,0,0,0.12) 0%, rgba(0,0,0,0.9) 70%);
+      pointer-events: none;
+      animation: moverNiebla 60s linear infinite;
+      background-size: 200% 200%;
+      mix-blend-mode: lighten;
+    }
+    .neblina::after{
+      content:'';
+      position:absolute; inset:0;
+      background: radial-gradient(circle at 60% 30%, rgba(120,0,0,0.07), transparent 45%),
+                  radial-gradient(circle at 30% 70%, rgba(120,0,0,0.06), transparent 50%);
+      opacity:.7;
+      animation: drift 120s linear infinite;
+    }
+    @keyframes moverNiebla { 0%{background-position:0% 0%} 50%{background-position:100% 100%} 100%{background-position:0% 0%} }
+    @keyframes drift { from{transform:translate(0,0)} to{transform:translate(-200px,-200px)} }
+
+    /* Header */
+    header {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 10;
+      background: rgba(0,0,0,0.9);
+      padding: 18px 44px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    header h1 { 
+      font-family: 'UnifrakturCook', cursive; 
+      font-size: 1.9rem; letter-spacing: .5px;
+      color: #f5f5f5;
+      text-shadow: 0 0 12px #7a0c0c, 0 0 30px #4d0000;
+    }
+    nav { display: flex; gap: 28px; }
+    nav a {
+      text-decoration: none; color: #eee; font-size: 1.05rem;
+      transition: .25s ease;
+    }
+    nav a:hover { color: #fff; text-shadow: 0 0 18px #b41414; }
+
+    /* Main layout */
+    main {
+      position: relative; z-index: 1;
+      padding-top: 130px;
+      display: grid; place-items: center;
+      gap: 28px;
+    }
+
+    /* Runas detrás del modelo */
+    .runas {
+      position: absolute; top: 120px; 
+      width: 820px; height: 820px; border-radius: 50%;
+      border: 2px dashed rgba(255,0,0,0.30);
+      animation: spin 32s linear infinite;
+      z-index: 1;
+    }
+    @keyframes spin { from{transform:rotate(0)} to{transform:rotate(360deg)} }
+
+    /* Modelo 3D */
+    model-viewer {
+      width: clamp(320px, 55vw, 680px);
+      height: clamp(320px, 55vw, 680px);
+      z-index: 2;
+      filter: drop-shadow(0 0 26px var(--rojo-1));
+      animation: aura 9s infinite alternate ease-in-out;
+    }
+    /* Aura más sutil */
+    @keyframes aura {
+      from { filter: drop-shadow(0 0 18px rgba(180,0,0,0.25)); }
+      to   { filter: drop-shadow(0 0 42px rgba(200,20,20,0.45)); }
+    }
+
+    /* Título + subtítulo */
+    .heading {
+      text-align: center; margin-top: 6px; z-index: 2;
+      max-width: 900px; padding: 0 20px;
+    }
+    .heading h2{
+      font-family:'UnifrakturCook', cursive;
+      font-size: clamp(2.2rem, 4vw, 3rem);
+      margin-bottom: 8px;
+    }
+    .heading p { 
+      opacity: .9; line-height: 1.6rem;
+      max-width: 760px; margin: 0 auto;
+    }
+
+    /* Formulario */
+    .card {
+      width: min(900px, 92vw);
+      margin: 20px auto 60px;
+      background: rgba(8,8,10,0.6);
+      border: 1px solid rgba(255,255,255,0.07);
+      box-shadow: 0 0 28px rgba(40,0,0,0.25);
+      border-radius: 16px;
+      padding: 26px;
+      backdrop-filter: blur(6px);
+      z-index: 2;
+    }
+    .form-grid{
+      display: grid; gap: 18px;
+      grid-template-columns: 1fr 1fr; 
+    }
+    .form-grid .full { grid-column: 1 / -1; }
+    label{ font-size:.95rem; opacity:.9; margin-bottom:6px; display:block; }
+    input, textarea{
+      width:100%;
+      background: rgba(255,255,255,0.04);
+      border:1px solid rgba(255,255,255,0.12);
+      color: var(--txt);
+      border-radius: 10px;
+      padding: 12px 14px;
+      outline:none;
+      transition:.25s ease;
+    }
+    textarea{ min-height: 130px; resize: vertical; }
+    input:focus, textarea:focus { border-color: rgba(200,30,30,0.55); box-shadow: 0 0 18px rgba(120,0,0,0.25) inset; }
+
+    .small { font-size: .9rem; opacity: .85; }
+    .acciones{ display:flex; gap:12px; align-items:center; justify-content:flex-end; margin-top: 10px; }
+    .btn{
+      border:1px solid rgba(255,255,255,0.14);
+      background: linear-gradient(180deg, rgba(120,0,0,0.25), rgba(30,0,0,0.25));
+      color:#eee; padding: 12px 20px; border-radius: 12px; cursor:pointer;
+      transition:.25s ease; letter-spacing:.6px;
+    }
+    .btn:hover{ border-color: rgba(200,30,30,0.6); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(200,30,30,0.18); }
+
+    /* Scramble + sangre aleatoria */
+    .scramble { position: relative; }
+    .sangre { color:#ff4444; text-shadow: 0 0 8px #f00, 0 0 20px #800; transition: color .25s ease; }
+
+    /* Confirmación */
+    .toast{
+      position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%) translateY(20px);
+      background: rgba(20,20,22,0.9); color:#e8e8e8; border:1px solid rgba(255,255,255,0.1);
+      padding: 12px 16px; border-radius: 10px; opacity:0; pointer-events:none; z-index: 20;
+      transition: .35s ease;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+    }
+    .toast.show{ opacity:1; transform: translateX(-50%) translateY(0); }
+
+    /* Responsivo */
+    @media (max-width: 840px){
+      .runas{ width: 86vw; height: 86vw; top: 140px; }
+      .form-grid{ grid-template-columns: 1fr; }
+      .acciones{ justify-content: stretch; }
+    }
+    /* === RESPONSIVIDAD GLOBAL === */
+
+/* Modelo 3D siempre dentro de la pantalla */
+model-viewer {
+  width: clamp(260px, 60vw, 640px);
+  height: clamp(260px, 60vw, 640px);
+  max-width: 90vw;
+  max-height: 70vh;
+}
+
+/* Ajustes para textos */
+.heading h2 {
+  font-size: clamp(1.8rem, 5vw, 3rem);
+}
+.heading p {
+  font-size: clamp(1rem, 2.3vw, 1.3rem);
+  line-height: 1.6rem;
+  padding: 0 10px;
+}
+
+/* Ajustes de la tarjeta en pantallas medianas */
+@media (max-width: 1024px) {
+  .card {
+    margin: 20px auto 40px;
+    padding: 20px;
+  }
+}
+
+/* Pantallas medianas a chicas (tablets/móviles grandes) */
+@media (max-width: 840px) {
+  header {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 15px 20px;
+  }
+  nav {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+  .runas {
+    width: 86vw;
+    height: 86vw;
+    top: 160px;
+  }
+  .form-grid {
+    grid-template-columns: 1fr; /* el formulario pasa a una sola columna */
+  }
+  .acciones {
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+/* Pantallas pequeñas (celulares angostos) */
+@media (max-width: 480px) {
+  model-viewer {
+    width: 80vw;
+    height: 55vh;
+  }
+  .heading h2 {
+    font-size: 1.6rem;
+  }
+  .heading p {
+    font-size: 0.95rem;
+    line-height: 1.4rem;
+  }
+  label {
+    font-size: 0.85rem;
+  }
+  .btn {
+    width: 100%; /* botón ocupa todo el ancho */
+    text-align: center;
+  }
+}
+
+  </style>
+
+  <!-- Preload & Prefetch del modelo -->
+  <link rel="preload"  href="engel_statue_scan_-_retopology.glb" as="fetch" type="model/gltf-binary" crossorigin="anonymous">
+  <link rel="prefetch" href="engel_statue_scan_-_retopology.glb" as="fetch" type="model/gltf-binary" crossorigin="anonymous">
+
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+</head>
+<body>
+
+  <!-- Niebla sutil detrás de todo -->
+  <div class="neblina"></div>
+
+  <header>
+    <h1 class="scramble">Iglesia del Saber Eterno</h1>
+    <nav>
+      <a href="index.html"   class="scramble">Inicio</a>
+      <a href="historia.html" class="scramble">Historia</a>
+      <a href="ritos.html"    class="scramble">Ritos</a>
+      <a href="contacto.html" class="scramble">Contacto</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="runas" aria-hidden="true"></div>
+
+    <!-- Modelo 3D (no manipulable, rotando) -->
+    <model-viewer
+      src="engel_statue_scan_-_retopology.glb"
+      auto-rotate auto-rotate-delay="0" rotation-per-second="8deg"
+      shadow-intensity="1" exposure="0.62"
+      interaction-prompt="none" camera-controls="false"
+      loading="eager" reveal="auto" poster="black"
+      environment-image="neutral" aria-label="Ángel custodio rotando">
+    </model-viewer>
+
+    <section class="heading">
+      <h2 class="scramble">Contacto Ritual</h2>
+      <p class="scramble">Dejá tu señal en el libro. Tu nombre será susurrado en el círculo, y nuestra respuesta llegará cuando los ojos se alineen.</p>
+    </section>
+
+    <!-- Tarjeta de contacto -->
+    <section class="card" aria-label="Formulario de contacto">
+      <form id="contacto" novalidate>
+        <div class="form-grid">
+          <div>
+            <label for="nombre">Nombre</label>
+            <input id="nombre" name="nombre" type="text" placeholder="Tu nombre" required />
+          </div>
+          <div>
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="tunombre@dominio.com" required />
+          </div>
+          <div class="full">
+            <label for="asunto">Asunto</label>
+            <input id="asunto" name="asunto" type="text" placeholder="Consulta / Colaboración / Invitación" />
+          </div>
+          <div class="full">
+            <label for="mensaje">Mensaje</label>
+            <textarea id="mensaje" name="mensaje" placeholder="Escribe tu mensaje..."></textarea>
+          </div>
+        </div>
+
+        <div class="acciones">
+          <span class="small scramble" aria-hidden="true">Al enviar, aceptás el juramento de silencio.</span>
+          <button class="btn" type="submit">Enviar</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <!-- Toast -->
+  <div class="toast" id="toast" role="status" aria-live="polite">🕯️ Juramento recibido. Pronto obtendrás respuesta.</div>
+
+  <script>
+    // Cache API: guardar el modelo para cargas futuras
+    if ('caches' in window) {
+      caches.open('model-cache-v1').then(cache => {
+        cache.add('engel_statue_scan_-_retopology.glb').catch(()=>{});
+      });
+    }
+    // Precarga manual adicional
+    fetch('engel_statue_scan_-_retopology.glb').catch(()=>{});
+
+    // Scramble + letras sangrientas aleatorias
+    const chars = "!<>-_\\/[]{}—=+*^?#ΩΨΦ§";
+    function rndChar(){ return chars[Math.floor(Math.random()*chars.length)]; }
+
+    function scrambleOnce(el, chance=0.12, duration=220){
+      const original = el.dataset.original || el.textContent;
+      if(!el.dataset.original) el.dataset.original = original;
+      let out = '';
+      for (let i=0;i<original.length;i++){
+        out += (Math.random()<chance && original[i] !== ' ')? rndChar() : original[i];
+      }
+      el.textContent = out;
+      setTimeout(()=>{ el.textContent = original; }, duration);
+    }
+
+    function sangrarLetras(){
+      document.querySelectorAll('.heading p, .heading h2, .card label, .card .small').forEach(el=>{
+        const base = el.dataset.base || el.textContent;
+        if(!el.dataset.base) el.dataset.base = base;
+        el.innerHTML = base.split('').map(ch=>{
+          if (ch !== ' ' && Math.random() < 0.05){ return `<span class="sangre">${ch}</span>`; }
+          return ch;
+        }).join('');
+      });
+    }
+
+    setInterval(()=>{
+      const els = document.querySelectorAll('.scramble');
+      if(els.length){
+        scrambleOnce(els[Math.floor(Math.random()*els.length)], 0.14, 260);
+      }
+      sangrarLetras();
+    }, 1100);
+
+    // Envío del formulario (simulado front-end)
+    const form = document.getElementById('contacto');
+    const toast = document.getElementById('toast');
+    form.addEventListener('submit', (e)=>{
+      e.preventDefault();
+
+      // Validación mínima
+      const email = form.email.value.trim();
+      const nombre = form.nombre.value.trim();
+      if(!nombre || !email || !/^\S+@\S+\.\S+$/.test(email)){
+        toast.textContent = '⚠️ Falta completar nombre o email válido.';
+        toast.classList.add('show');
+        setTimeout(()=>toast.classList.remove('show'), 2500);
+        return;
+      }
+
+      // Simulación de envío
+      toast.textContent = '🕯️ Juramento recibido. Pronto obtendrás respuesta.';
+      toast.classList.add('show');
+      setTimeout(()=>toast.classList.remove('show'), 2600);
+      form.reset();
+    });
+  </script>
+
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+</body>
+</html>

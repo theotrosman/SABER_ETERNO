@@ -134,6 +134,53 @@
   50% { background-position: 100% 100%; }
   100% { background-position: 0% 0%; }
 }
+/* Ajustes responsivos generales */
+model-viewer {
+  width: clamp(260px, 60vw, 600px);
+  height: clamp(260px, 60vw, 600px);
+  max-width: 90vw;
+  max-height: 70vh;
+}
+
+/* Texto ritual más legible en pantallas chicas */
+.versos {
+  width: 90%;
+  margin-top: 25px;
+}
+.versos p {
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  line-height: 1.8rem;
+}
+
+/* Header en móviles */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    gap: 12px;
+    padding: 15px 20px;
+  }
+  nav {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+  header h1 {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+}
+
+/* Pantallas muy pequeñas (celulares angostos) */
+@media (max-width: 480px) {
+  model-viewer {
+    width: 80vw;
+    height: 60vh;
+  }
+  .versos p {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+}
 
   </style>
 

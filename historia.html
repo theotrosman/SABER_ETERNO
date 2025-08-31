@@ -175,6 +175,77 @@
     }
 
     @keyframes aparecer { to { opacity: 1; } }
+    /* === RESPONSIVIDAD GLOBAL === */
+
+/* Modelo 3D ajustado siempre al viewport */
+model-viewer {
+  width: clamp(260px, 55vw, 600px);
+  height: clamp(260px, 60vh, 600px);
+  max-width: 90vw;
+  max-height: 70vh;
+}
+
+/* Texto y títulos fluidos */
+.texto h2 {
+  font-size: clamp(1.8rem, 5vw, 3rem);
+}
+.texto p {
+  font-size: clamp(1rem, 2.3vw, 1.3rem);
+  line-height: 1.6rem;
+  padding-right: 10px;
+}
+
+/* Layout para pantallas medianas */
+@media (max-width: 1024px) {
+  main {
+    grid-template-columns: 1fr; /* una sola columna */
+    padding: 20px;
+    gap: 25px;
+  }
+  .texto {
+    padding-right: 0;
+    text-align: center;
+  }
+  .angel-container {
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+/* Header responsivo */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 15px 20px;
+  }
+  nav {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+  header h1 {
+    font-size: 1.6rem;
+    text-align: center;
+  }
+}
+
+/* Pantallas muy pequeñas (celulares angostos) */
+@media (max-width: 480px) {
+  .texto h2 {
+    font-size: 1.4rem;
+  }
+  .texto p {
+    font-size: 0.95rem;
+    line-height: 1.4rem;
+  }
+  model-viewer {
+    width: 85vw;
+    height: 50vh;
+  }
+}
+
   </style>
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 </head>
